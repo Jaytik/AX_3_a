@@ -1,0 +1,47 @@
+php:
+	date.timezone: Europe/Prague
+
+
+nette:
+	application:
+		errorPresenter: Error
+		mapping:
+			*: App\*Module\Presenters\*Presenter
+
+	session:
+		expiration: 14 days
+		debugger: TRUE
+
+	debugger:
+		showLocation: TRUE
+
+
+
+services:
+        - App\Model\UserManager
+        - App\Model\Users
+        - App\Model\UserRepository
+        
+        - App\Components\Vypis\VypisControlFactory
+            #parameters: [db]
+            #arguments: [%db%]
+        - App\Components\Members\MembersControlFactory
+            #parameters: [db]
+            #arguments: [%db%]
+        - App\RouterFactory
+        - 
+            implement: App\Components\FiltrPlat\FiltrPlatControlFactory
+            #parameters: [db]
+            #arguments: [%db%]
+        - App\Components\SignIn\SignInControlFactory
+            #parameters: [db]
+            #arguments: [%db%]
+        
+            
+        
+            
+
+            
+        
+        router: @App\RouterFactory::createRouter
+

@@ -1,0 +1,76 @@
+{**
+ * @param string   $basePath web base path
+ * @param array    $flashes  flash messages
+ *}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>{ifset #title}{include title|striptags} | {/ifset}Nette Sandbox</title>
+
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css">
+	<link rel="stylesheet" media="print" href="{$basePath}/css/print.css">
+	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
+        
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+        
+	{block head}{/block}
+</head>
+
+<body>
+    <div class="top">
+    <div class="tableX">
+        <div class="logo">
+        <img src="/AX/www/css/skoda.png" width=100%>
+        </div>
+        <div class="nav">
+            <ul class="menu">
+                <li><a n:href="Homepage:default">Home |</a></li>
+                <li><a n:href="Homepage:VypisControl">Select |</a></li>
+                <li><a n:href="Homepage:jmena">Jména |</a></li>
+                <li><a n:href="Sign:in">Sign in |</a></li>
+                <a href="{plink Register:default}">Registrovat |</a>
+                <li>Contact |</li>
+            </ul>
+        </div>
+        <div class="nav-admo">
+            <ul class="admo">
+                {if $user->isInRole('admin')}
+                    <li><a n:href="Cms:MembersControl">Users |</a></li>
+                    <li class="redox"><a n:href="Homepage:FiltrPlatControl">Save |</a></li>
+                {/}
+            </ul>
+        </div>
+    </div>
+    </div>
+    
+	<script> document.documentElement.className+=' js' </script>
+    <div class="place">
+	<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+        
+        <div class="logen">
+	{if $user->isLoggedIn()}
+		Jsem přihlášen a můj email je: {$user->getIdentity()->data['email']}
+                {if $user->isInRole('admin')}
+			 Přejít do <a n:href="Cms:">CMS</a>
+		{/}
+                <p>
+			<a n:href="logout!">Odhlásit</a>
+		</p>
+	{else}
+		Nejste přihlášen
+		Nejste přihlášen - <a n:href="Sign:in">přihlašte se</a>
+ 	{/}
+        </div>
+	{include content}
+    </div><!--END OF PLACE -->
+	{block scripts}
+	<script src="{$basePath}/js/jquery.js"></script>
+	<script src="{$basePath}/js/netteForms.js"></script>
+	<script src="{$basePath}/js/main.js"></script>
+	{/block}
+    
+</body>
+</html>

@@ -1,0 +1,33 @@
+{* This is the welcome page, you can delete it *}
+
+{block content}
+<div class="avatar">
+    <img src="/AX/www/css/avatar.png">
+</div>
+<div class="labos">
+    <h2>DETAIL OSOBY</h2>
+    <h1>{$uzivatel->jmeno}<h1>
+    <h2>{$uzivatel->mesto}<h2>
+    <h2>{$uzivatel->kraj} kraj<h2>
+    <h3>{$uzivatel->stat}<h3>
+    <h2 class="redo">Plat: {$uzivatel->plat},--<h2>
+</div>
+<a n:href="Homepage:default">BACK</a>
+{*<h2>DETAIL</h2>
+{foreach $selection as $row}
+    {$row->jmeno}
+    {$row->plat}
+{/}
+<h2>DETAIL 2</h2>
+    {$uzivatel->jmeno}
+    {$uzivatel->plat}
+<h2>DETAIL 3</h2>
+
+<ul n:foreach ="$selection as $row">
+    <li> <a n:href="Homepage:detail, id => $row->id">{$row->jmeno}</a>
+            
+    {$row->plat}
+    </li>
+</ul>
+*}
+

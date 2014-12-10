@@ -1,0 +1,21 @@
+{* Latte template 
+
+{block content}*}
+{foreach $flashes as $flash}
+    <div class="flash {$flash->type}">{$flash->message}</div>
+{/foreach}
+<table>
+    
+<ul class="resuti" n:foreach ="$users as $row">
+ <tr>  
+    <td class="num"><li>{$row->id}</li></td>
+    <td class="ema"><li>{$row->email}</li></td>
+    <td class="pas"><li>HASH</li></td>
+    <td class="nam"><li>{$row->name}</li></td>
+    <td class="rol"><li>{$row->role}</li></td>
+    <td class="rol"><li><a href="{plink Cms:delet id=>$row->id}"><img src="{$basePath}/css/delete.png"></a></li></td>
+    
+   
+</tr>    
+</ul>
+</table>

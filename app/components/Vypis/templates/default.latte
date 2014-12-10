@@ -1,0 +1,29 @@
+{* Latte template *}
+
+{* {block content}  zde nen9 potreba*}
+<div class="form_form">
+{control form}
+</div>
+{*
+<ul class="resut" n:foreach ="$users as $row">
+    <li class="numero">{$row->id}</li>
+    <li class="li-name"><a href="{plink Homepage:detail, id=>$row->id}">{$row->jmeno}</a></li>
+    <li class="next">{$row->plat}</li>
+    <li class="next">{$row->mesto}</li>
+    <li class="next">{$row->kraj}</li>
+    <li class="next">{$row->stat}</li>
+    <li class="next"><a href="{plink Homepage:detail, id=>$row->id}"><img src="{$basePath}/css/icon.png"></a></li>
+    
+</ul>
+*}
+
+<ul class="resut" n:foreach ="$users as $row">
+   
+    <li class="next">{$row->jmeno}</li>
+    <li class="next">{$row->mesto}</li>
+    <li class="next">{$row->stat}</li>
+    <li class="next">{$row->mesic}</li>
+    <li class="next">{$row->typ}</li>
+    <li class="next">{$row->rok}</li>
+    
+</ul>
