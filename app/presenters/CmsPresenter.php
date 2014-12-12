@@ -4,6 +4,7 @@ use App\Components\FiltrPlat\FiltrPlatControlFactory;
 use App\Components\Members\MembersControlFactory;
 use App\Components\User\UserControl;
 use App\Components\User\UserControlFactory;
+use App\Model\UserRepository;
 use Nette;
 
 class CmsPresenter extends BasePresenter
@@ -17,19 +18,24 @@ class CmsPresenter extends BasePresenter
 	 */
 	private $userControlFactory;
 
+	/**
+	 * @var UserRepository
+	 */
+	private $userRepository;
+
 
 	public function __construct(
-	        Nette\Database\Context $db,
-	        FiltrPlatControlFactory $filtrPlatControlFactory,
-            MembersControlFactory $membersControlFactory,
-			UserControlFactory $userControlFactory
-        ) {
-            $this->db = $db;
-            $this->filtrPlatControlFactory = $filtrPlatControlFactory;
-            $this->membersControlFactory = $membersControlFactory;
-
-            parent::__construct();
+        Nette\Database\Context $db,
+        FiltrPlatControlFactory $filtrPlatControlFactory,
+        MembersControlFactory $membersControlFactory,
+		UserControlFactory $userControlFactory,
+		UserRepository $userRepository
+    ) {
+        $this->db = $db;
+        $this->filtrPlatControlFactory = $filtrPlatControlFactory;
+        $this->membersControlFactory = $membersControlFactory;
 		$this->userControlFactory = $userControlFactory;
+		$this->userRepository = $userRepository;
 	}
 	protected function startup()
 	{
@@ -74,6 +80,8 @@ class CmsPresenter extends BasePresenter
 	 */
 	public function actionEdit($id)
 	{
+		$user = $this->userRepository->findOneBy(array('id' => $id));
+		$this['user']->setUser($user);
 	}
 
     public function renderMembers(){

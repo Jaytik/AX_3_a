@@ -33,8 +33,7 @@ class RegisterControl extends Control
 		UserRepository $userRepository,
 		UserManager $userManager,
 		NameEmailContainerFactory $nameEmailContainerFactory
-	)
-	{
+	) {
 		$this->userRepository = $userRepository;
 		$this->userManager = $userManager;
 		$this->nameEmailContainerFactory = $nameEmailContainerFactory;

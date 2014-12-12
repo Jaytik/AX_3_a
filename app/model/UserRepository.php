@@ -3,6 +3,8 @@
 namespace App\Model;
 
 use Nette;
+use Nette\Database\Row;
+use Nette\Utils\ArrayHash;
 
 
 /**
@@ -68,6 +70,17 @@ class UserRepository {
 	public function findBy(array $criteria)
 	{
 		return $this->members->where($criteria);
+	}
+
+
+	/**
+	 * @param int $id
+	 * @param array|Row|ArrayHash $data
+	 */
+	public function update($id, $data)
+	{
+		$data['id'] = $id;
+		$this->members->update($data);
 	}
 
 }
