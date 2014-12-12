@@ -2,6 +2,9 @@
 
 namespace App\Presenters;
 
+use App\Components\FiltrPlat\FiltrPlatControlFactory;
+use App\Components\SignIn\SignInControlFactory;
+use App\Components\Vypis\VypisControlFactory;
 use Nette,
 	App\Model;
 
@@ -14,19 +17,20 @@ class HomepagePresenter extends BasePresenter
         private $db;
         private $filtrPlatControlFactory;
         private $vypisControlFactory;
-        private $signInControlFactory;
-        
-        public function __construct(\Nette\Database\Context $db, \App\Components\FiltrPlat\FiltrPlatControlFactory $filtrPlatControlFactory, \App\Components\Vypis\VypisControlFactory $vypisControlFactory, \App\Components\SignIn\SignInControlFactory $signInControlFactory) {
+
+        public function __construct(
+	        Nette\Database\Context $db,
+	        FiltrPlatControlFactory $filtrPlatControlFactory,
+	        VypisControlFactory $vypisControlFactory
+        ) {
             $this->db = $db;
             $this->filtrPlatControlFactory = $filtrPlatControlFactory;
             $this->vypisControlFactory = $vypisControlFactory;
-            $this->signInControlFactory = $signInControlFactory;
-            parent::__construct();
         }
         /*public function startup()
 	{
 		parent::startup();
-                
+
 		if ( ! $this->user->isLoggedIn()) {
 			$this->user->login('email@gmail.com', 'tajneheslo');
 			$this->redirect('this');
@@ -34,12 +38,12 @@ class HomepagePresenter extends BasePresenter
 	}*/
 	public function renderDefault()
 	{
-		
+
                 $this->template->anyVariable = 'any value';
                 $users = $this->db->table('tabulka');
                 //dump($selection);
                 $this->template->users = $users;
-                                
+
 	}
         public function renderJmena()
 	{
@@ -50,9 +54,9 @@ class HomepagePresenter extends BasePresenter
 
                 //dump($selection);
                 $this->template->selection = $selection;
-                
+
 	}
-       
+
         public function renderDetail($id)
 	{
 		//dump($id);
@@ -63,12 +67,12 @@ class HomepagePresenter extends BasePresenter
                     if($uzivatel == NULL)
                         {
                         $this->redirect("Homepage:Detail",array("id" => '1'));
-                               
+
                         }
                          $this->template->uzivatel = $uzivatel;
                 //dump($selection);
                 $this->template->selection = $selection;
-                
+
 	}
         public function renderSave(){
             return $this->filtrPlat;
@@ -85,10 +89,5 @@ class HomepagePresenter extends BasePresenter
         protected function createComponentVypis() {
             return $this->vypisControlFactory->create();
         }
-        protected function createComponentSignIn() {
-            return $this->signInControlFactory->create();
-        }
-        
-        
 
 }
