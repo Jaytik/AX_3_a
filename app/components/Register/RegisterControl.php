@@ -2,6 +2,7 @@
 
 namespace App\Components\Register;
 
+use App\Components\NameEmailContainerFactory;
 use App\Model\UserManager;
 use App\Model\UserRepository;
 use Nette\Application\UI\Control;
@@ -22,23 +23,27 @@ class RegisterControl extends Control
 	 */
 	private $userManager;
 
+	/**
+	 * @var NameEmailContainerFactory
+	 */
+	private $nameEmailContainerFactory;
 
-	public function __construct(UserRepository $userRepository, UserManager $userManager)
+
+	public function __construct(
+		UserRepository $userRepository,
+		UserManager $userManager,
+		NameEmailContainerFactory $nameEmailContainerFactory
+	)
 	{
 		$this->userRepository = $userRepository;
 		$this->userManager = $userManager;
+		$this->nameEmailContainerFactory = $nameEmailContainerFactory;
 	}
 
 
 	protected function createComponentForm()
 	{
-		$form = new Form;
-		$form->addText('name', 'Jméno');
-		$form->addText('email', 'E-mail: *', 35)
-			->setEmptyValue('@')
-			->addRule(Form::FILLED, 'Vyplňte Váš email')
-			->addCondition(Form::FILLED)
-			->addRule(Form::EMAIL, 'Neplatná emailová adresa');
+		$form = $this->nameEmailContainerFactory->create();
 		$form->addPassword('password', 'Heslo: *', 20)
 			->setOption('description', 'Alespoň 6 znaků')
 			->addRule(Form::FILLED, 'Vyplňte Vaše heslo')
@@ -49,12 +54,12 @@ class RegisterControl extends Control
 			->addRule(Form::EQUAL, 'Hesla se neshodují.', $form['password']);
 		$form->addSubmit('send', 'Registrovat')
 			->setAttribute('class', 'sender');
-		$form->onSuccess[] = callback($this, 'registerFormSubmitted');
+		$form->onSuccess[] = callback($this, 'processForm');
 		return $form;
 	}
 
 
-	public function registerFormSubmitted(Form $form, $values) {
+	public function processForm(Form $form, $values) {
 		//$role = 'guest';
 		$email = $this->userRepository->findOneBy(array('email' => $values->email));
 

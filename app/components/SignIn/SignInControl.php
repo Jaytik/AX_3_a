@@ -2,6 +2,9 @@
 namespace App\Components\SignIn;
 use Nette;
 use Nette\Application\UI\Control;
+use Nette\Application\UI\Form;
+
+
 class SignInControl extends Control
 {
 	/**
@@ -14,17 +17,19 @@ class SignInControl extends Control
 	}
 	protected function createComponentForm()
 	{
-		$form = new Nette\Application\UI\Form;
+		$form = new Form;
 		$form->addText('username', 'Username:')
 			->setRequired('Please enter your username.');
 		$form->addPassword('password', 'Password:')
 			->setRequired('Please enter your password.');
 		$form->addSubmit('send', 'Sign in');
 		// call method signInFormSucceeded() on success
-		$form->onSuccess[] = $this->signInFormSucceeded;
+		$form->onSuccess[] = $this->processForm;
 		return $form;
 	}
-	public function signInFormSucceeded($form, $values)
+
+
+	public function processForm(Form $form, $values)
 	{
 		try {
 			$this->user->login($values->username, $values->password);
@@ -35,6 +40,8 @@ class SignInControl extends Control
 			$form->addError($e->getMessage());
 		}
 	}
+
+
 	public function render()
 	{
 		$this->template->setFile(__DIR__ . '/templates/default.latte');
