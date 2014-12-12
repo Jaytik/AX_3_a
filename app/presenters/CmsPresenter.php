@@ -29,7 +29,7 @@ class CmsPresenter extends BasePresenter
         FiltrPlatControlFactory $filtrPlatControlFactory,
         MembersControlFactory $membersControlFactory,
 		UserControlFactory $userControlFactory,
-		UserRepository $userRepository
+		UserRepository $userRepository,
     ) {
         $this->db = $db;
         $this->filtrPlatControlFactory = $filtrPlatControlFactory;
