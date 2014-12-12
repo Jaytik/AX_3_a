@@ -28,7 +28,9 @@ class SignInControl extends Control
 	{
 		try {
 			$this->user->login($values->username, $values->password);
+			$this->presenter->flashMessage('Byli jste úspěšně přihlášeni');
 			$this->presenter->redirect('Homepage:');
+
 		} catch (Nette\Security\AuthenticationException $e) {
 			$form->addError($e->getMessage());
 		}
