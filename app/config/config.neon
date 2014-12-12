@@ -21,7 +21,7 @@ services:
         - App\Model\UserManager
         - App\Model\Users
         - App\Model\UserRepository
-        
+
         - App\Components\Vypis\VypisControlFactory
             #parameters: [db]
             #arguments: [%db%]
@@ -29,19 +29,14 @@ services:
             #parameters: [db]
             #arguments: [%db%]
         - App\RouterFactory
-        - 
+        -
             implement: App\Components\FiltrPlat\FiltrPlatControlFactory
             #parameters: [db]
             #arguments: [%db%]
         - App\Components\SignIn\SignInControlFactory
             #parameters: [db]
             #arguments: [%db%]
-        
-            
-        
-            
+        - App\Components\Register\RegisterControlFactory
 
-            
-        
         router: @App\RouterFactory::createRouter
 
