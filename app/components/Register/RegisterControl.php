@@ -2,12 +2,33 @@
 
 namespace App\Components\Register;
 
+use App\Model\UserManager;
+use App\Model\UserRepository;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
+use Nette\Security\IAuthenticator;
 
 
 class RegisterControl extends Control
 {
+
+	/**
+	 * @var UserRepository
+	 */
+	private $userRepository;
+
+	/**
+	 * @var UserManager
+	 */
+	private $userManager;
+
+
+	public function __construct(UserRepository $userRepository, UserManager $userManager)
+	{
+		$this->userRepository = $userRepository;
+		$this->userManager = $userManager;
+	}
+
 
 	protected function createComponentForm()
 	{
@@ -31,26 +52,21 @@ class RegisterControl extends Control
 		$form->onSuccess[] = callback($this, 'registerFormSubmitted');
 		return $form;
 	}
-	public function registerFormSubmitted(UI\Form $form) {
-		//$role = 'guest';
-		$values = $form->getValues();
 
-		$email = $this->db->table('users')->where('email', $values->email)
-			->fetch();
-		dump($values->name);
-		dump($values->email);
-		dump($values->password);
-		//die;
-		if($email) {
+
+	public function registerFormSubmitted(Form $form, $values) {
+		//$role = 'guest';
+		$email = $this->userRepository->findOneBy(array('email' => $values->email));
+
+		if ($email) {
 			$form->addError('Tento email je již používán.');
 		} else {
-			$this->user->getAuthenticator()->add($values->email, $values->password, $values->name);
-			dump($values->name);
-			//die;
-			$this->flashMessage('Uživatel registrován.');
-			$this->redirect('Homepage:default');
+			$this->userManager->add($values->email, $values->password, $values->name);
+			$this->presenter->flashMessage('Uživatel registrován.');
+			$this->presenter->redirect('Homepage:default');
 		}
 	}
+
 
 	public function render()
 	{
