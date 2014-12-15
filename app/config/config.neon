@@ -16,32 +16,21 @@ nette:
 		showLocation: TRUE
 
 
-
 services:
-        - App\Model\UserManager
-        - App\Model\Users
-        - App\Model\UserRepository
-        
-        - App\Components\Vypis\VypisControlFactory
-            #parameters: [db]
-            #arguments: [%db%]
-        - App\Components\Members\MembersControlFactory
-            #parameters: [db]
-            #arguments: [%db%]
-        - App\RouterFactory
-        - 
-            implement: App\Components\FiltrPlat\FiltrPlatControlFactory
-            #parameters: [db]
-            #arguments: [%db%]
-        - App\Components\SignIn\SignInControlFactory
-            #parameters: [db]
-            #arguments: [%db%]
-        
-            
-        
-            
+	- App\Model\UserManager
+	- App\Model\Users
+	- App\Model\UserRepository
 
-            
-        
-        router: @App\RouterFactory::createRouter
+	# components
+	- App\Components\Vypis\VypisControlFactory
+	- App\Components\Members\MembersControlFactory
+	- App\Components\FiltrPlat\FiltrPlatControlFactory
+	- App\Components\SignIn\SignInControlFactory
+	- App\Components\Register\RegisterControlFactory
+	- App\Components\User\UserControlFactory
+
+	- App\Components\NameEmailContainerFactory
+
+	- App\RouterFactory
+	router: @App\RouterFactory::createRouter
 

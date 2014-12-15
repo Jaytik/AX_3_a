@@ -1,0 +1,22 @@
+{block content}
+
+
+{block vizitka}
+Mé jméno je
+{/block}
+
+{include vizitka}
+
+<hr>
+
+{define table}
+<table><tr><th>{$name}</th></tr></table>
+{/define}
+
+{include table, name => "Mé jméno"}
+
+<hr>
+
+{control members}
+
+

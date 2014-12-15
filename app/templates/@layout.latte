@@ -13,9 +13,9 @@
 	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css">
 	<link rel="stylesheet" media="print" href="{$basePath}/css/print.css">
 	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
-        
+
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
-        
+
 	{block head}{/block}
 </head>
 
@@ -33,6 +33,7 @@
                 <li><a n:href="Sign:in">Sign in |</a></li>
                 <a href="{plink Register:default}">Registrovat |</a>
                 <li>Contact |</li>
+				<li><a n:href="Ajax:default">Ajax příklady</a></li>
             </ul>
         </div>
         <div class="nav-admo">
@@ -45,11 +46,13 @@
         </div>
     </div>
     </div>
-    
+
 	<script> document.documentElement.className+=' js' </script>
     <div class="place">
-	<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
-        
+    {snippet flashes}
+		<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+	{/snippet}
+
         <div class="logen">
 	{if $user->isLoggedIn()}
 		Jsem přihlášen a můj email je: {$user->getIdentity()->data['email']}
@@ -69,8 +72,9 @@
 	{block scripts}
 	<script src="{$basePath}/js/jquery.js"></script>
 	<script src="{$basePath}/js/netteForms.js"></script>
+	<script src="{$basePath}/js/nette.ajax.js"></script>
 	<script src="{$basePath}/js/main.js"></script>
 	{/block}
-    
+
 </body>
 </html>

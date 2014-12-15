@@ -2,8 +2,8 @@ parameters:
 
 
 database:
-	dsn: 'mysql:host=127.0.0.1;dbname=databaze'
-	user: root
-	password:
+	dsn: 'pgsql:host=127.0.0.1;dbname=doctrine;port=5433'
+	user: postgres
+	password: root
 	options:
 		lazy: yes
