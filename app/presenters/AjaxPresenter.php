@@ -17,6 +17,7 @@ class AjaxPresenter extends BasePresenter
 	public function handleIncreaseGiftCount()
 	{
 		$this->giftCount++;
+		$this->redrawControl('giftCounter');
 	}
 
 
