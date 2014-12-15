@@ -13,9 +13,9 @@
 	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css">
 	<link rel="stylesheet" media="print" href="{$basePath}/css/print.css">
 	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
-        
+
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
-        
+
 	{block head}{/block}
 </head>
 
@@ -45,11 +45,11 @@
         </div>
     </div>
     </div>
-    
+
 	<script> document.documentElement.className+=' js' </script>
     <div class="place">
 	<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
-        
+
         <div class="logen">
 	{if $user->isLoggedIn()}
 		Jsem přihlášen a můj email je: {$user->getIdentity()->data['email']}
@@ -69,8 +69,9 @@
 	{block scripts}
 	<script src="{$basePath}/js/jquery.js"></script>
 	<script src="{$basePath}/js/netteForms.js"></script>
+	<script src="{$basePath}/js/nette.ajax.js"></script>
 	<script src="{$basePath}/js/main.js"></script>
 	{/block}
-    
+
 </body>
 </html>
