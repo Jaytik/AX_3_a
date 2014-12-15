@@ -72,10 +72,11 @@ class RegisterControl extends Control
 			$form->addError('Tento email je již používán.');
 		} else {
 			$this->userManager->add($values->email, $values->password, $values->name);
-			$this->flashMessage('Uživatel registrován.');
+			$this->presenter->flashMessage('Uživatel registrován - presenter.');
 			$this->registrationSuccessful = TRUE;
 		}
 
+		$this->presenter->redrawControl('flashes');
 		$this->redrawControl();
 	}
 

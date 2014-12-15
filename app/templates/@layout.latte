@@ -49,7 +49,9 @@
 
 	<script> document.documentElement.className+=' js' </script>
     <div class="place">
-	<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+    {snippet flashes}
+		<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+	{/snippet}
 
         <div class="logen">
 	{if $user->isLoggedIn()}

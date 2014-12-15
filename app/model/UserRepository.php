@@ -19,11 +19,11 @@ class UserRepository {
     private $members;
 
     public function __construct(Nette\Database\Context $db) {
-            //$this->db = $db;
-            $this->table = $db->table('tabulka');
-            $this->members = $db->table('users');
+        //$this->db = $db;
+        $this->table = $db->table('tabulka');
+        $this->members = $db->table('users');
+    }
 
-        }
     public function findByMesto($mesic,$typ,$rok){
         $users = $this->table;
         if ($mesic){

@@ -1,8 +1,6 @@
 <h2>Registrovat</h2>
 
 {snippet}
-	<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
-
 	{if $registrationSuccessful === FALSE}
 		{control form}
 	{/if}
