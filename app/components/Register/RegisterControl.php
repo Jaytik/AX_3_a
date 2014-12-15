@@ -28,6 +28,11 @@ class RegisterControl extends Control
 	 */
 	private $nameEmailContainerFactory;
 
+	/**
+	 * @var bool
+	 */
+	private $registrationSuccessful = FALSE;
+
 
 	public function __construct(
 		UserRepository $userRepository,
@@ -43,6 +48,7 @@ class RegisterControl extends Control
 	protected function createComponentForm()
 	{
 		$form = $this->nameEmailContainerFactory->create();
+		$form->getElementPrototype()->class = 'ajax';
 		$form->addPassword('password', 'Heslo: *', 20)
 			->setOption('description', 'Alespoň 6 znaků')
 			->addRule(Form::FILLED, 'Vyplňte Vaše heslo')
@@ -66,14 +72,17 @@ class RegisterControl extends Control
 			$form->addError('Tento email je již používán.');
 		} else {
 			$this->userManager->add($values->email, $values->password, $values->name);
-			$this->presenter->flashMessage('Uživatel registrován.');
-			$this->presenter->redirect('Homepage:default');
+			$this->flashMessage('Uživatel registrován.');
+			$this->registrationSuccessful = TRUE;
 		}
+
+		$this->redrawControl();
 	}
 
 
 	public function render()
 	{
+		$this->template->registrationSuccessful = $this->registrationSuccessful;
 		$this->template->setFile(__DIR__ . '/templates/default.latte');
 		$this->template->render();
 	}

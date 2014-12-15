@@ -1,3 +1,18 @@
 <h2>Registrovat</h2>
 
-{control form}
+{snippet}
+	<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+
+	{if $registrationSuccessful === FALSE}
+		{control form}
+	{/if}
+
+	{ifset $setup}
+		{$setup}
+	{/ifset}
+{/snippet}
+
+{*{form form, class => ajax}*}
+	{*<div>{label password /}</div>*}
+	{*<div>{input password}</div>*}
+{*{/form}*}
